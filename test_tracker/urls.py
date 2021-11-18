@@ -23,6 +23,7 @@ urlpatterns = [
     path('dashboard/<str:name>/<str:version>/<int:day>-<int:month>-<int:year>/copy/<int:pk>',
          views.copy_result_to_current_date, name='copy_result_to_current_date'),
     # Dashboard
+    path('dashboard/new/<str:name>/<str:version>', views.new_dashboard, name='new_dashboard'),
     path('dashboard/<str:name>/<str:version>', views.dashboard, name='dashboard'),
     path('dashboard/<str:name>/<str:version>/table', views.dashboard_table, name='dashboard_table'),
     path('dashboard/<str:name>/<str:version>/info', views.dashboard_info, name='dashboard_info'),
@@ -49,5 +50,7 @@ urlpatterns = [
     # Duplicate
     path('duplicate/product/<int:pk>', views.ProductDuplicateView.as_view(), name='duplicate_product'),
     # Async
-    path('async/update/result/<int:pk>', views.async_update_results, name='async_update_results')
+    path('async/update/result/<int:pk>', views.async_update_results, name='async_update_results'),
+    path('async/new/update/testcase-in-table/<int:pk>-<int:num_days>', views.async_update_testcase_in_table,
+         name='async_update_testcase_in_table')
 ]

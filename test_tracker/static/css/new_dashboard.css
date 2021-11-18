@@ -1,0 +1,21 @@
+.result-status-cell {
+    width: 30px;
+    text-align: center;
+}
+
+.result-status-cell-empty {
+    width: 30px;
+    text-align: center;
+}
+
+.test-name-column {
+    width: 60px;
+}
+
+.category-column {
+    width: 60px;
+}
+
+.subcategory-column {
+    width: 60px;
+}

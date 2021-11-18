@@ -6,6 +6,7 @@
 * Copyright: (c) GLD
 ********************************************************************************
 """
+from collections import defaultdict
 import datetime
 import json
 import logging
@@ -68,6 +69,15 @@ class TestCase(models.Model):
         else:
             results = [(x, x.date) for x in test_results]
         return results
+
+    def get_results_for_last_n_days(self, days=5):
+        from test_tracker.models.test_result import TestResult
+        today = datetime.date.today()
+        last_date = today - datetime.timedelta(days=days)
+        test_results = defaultdict(None)
+        results = TestResult.objects.filter(testcase=self, date__range=[last_date, today])
+        test_results.update({result.date: result for result in results})
+        return test_results
 
     def get_last_n_test_results(self, n=30):
         from test_tracker.models.test_result import TestResult

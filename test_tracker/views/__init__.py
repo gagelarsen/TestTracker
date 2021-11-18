@@ -7,6 +7,7 @@
 ********************************************************************************
 """
 from test_tracker.views.dashboard_overview import dashboard_overview
+from test_tracker.views.new_dashboard import new_dashboard
 from test_tracker.views.dashboard import dashboard
 from test_tracker.views.dashboard import dashboard_table
 from test_tracker.views.dashboard import dashboard_info
@@ -32,3 +33,4 @@ from test_tracker.views.form_views import TestSubcategoryCreateView
 from test_tracker.views.form_views import TestStatusCreateView
 from test_tracker.views.async_views import async_update_case
 from test_tracker.views.async_views import async_update_results
+from test_tracker.views.async_views import async_update_testcase_in_table

@@ -1,0 +1,82 @@
+{% extends "test_tracker/layout.html" %}
+
+{% block page_js %}
+{% load static %}
+<script src="{% static 'js/new_dashboard.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/new_dashboard.css' %}">
+{% endblock %}
+
+
+
+{% block test_tracker_content %}
+{% load static %}
+
+<!-- Only Show errors if there are any errors. -->
+{% if errors %}
+    {% for error in errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+
+<!-- Show the rest of the dashboard if there are no errors -->
+{% else %}
+
+
+<h1>{{ name }} {{ version }}</h1>
+<div id="table-buttons">
+    <button id="hide-show-categories-button" type="button" class="btn btn-sm btn-info">Hide/Show Categories</button>
+    <button id="hide-show-inactive-button" type="button" class="btn btn-sm btn-info">Hide/Show Inactive</button>
+</div>
+
+<table id="dashboard-table" class="table" data-num-days="{{ number_of_days }}">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th class="category-column">Category</th>
+            <th class="subcategory-column">Subcategory</th>
+            {% for day in dates %}
+                <th>{{ day }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for test in tests %}
+        <tr data-test-id="{{ test.case.id }}"
+            data-test-category-id="{{ test.case.category_id }}"
+            data-test-subcategory-id="{{ test.case.subcategory_id }}"
+            data-needs-review="{{ test.case.needs_review }}"
+            data-test-active="{{ test.case.active }}"
+            id="test-id-{{ test.case.id }}"
+        >
+            <td class="test-name-column">{{ test.case.name }}</td>
+            <td class="category-column">{{ test.case.category.category }}</td>
+            <td class="subcategory-column">{{ test.case.subcategory.subcategory }}</td>
+            {% for date in dates %}
+            {% with result=test.results|get_item:date %}
+            {% if result %}
+            <td class="result-status-cell"
+                data-result-id="{{ result.id }}"
+                data-test-id="{{ test.case.id }}"
+                data-update-url="{% url 'update_result' result.pk %}"
+                id="result-status-{{ result.id }}"
+                style="background-color: {{ result.status.hex_color }}; color: {{ result.status.color }};">
+                {{ result.status.status }}
+            </td>
+            {% else %}
+            <td class="result-status-cell-empty"></td>
+            {% endif %}
+            {% endwith %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{{ test_cases }}
+
+
+
+{% endif %}
+
+{% endblock %}

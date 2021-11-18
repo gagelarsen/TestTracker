@@ -1,0 +1,18 @@
+<td class="test-name-column">{{ test.case.name }}</td>
+<td class="category-column">{{ test.case.category.category }}</td>
+<td class="subcategory-column">{{ test.case.subcategory.subcategory }}</td>
+{% for date in dates %}
+{% with result=test.results|get_item:date %}
+{% if result %}
+<td class="result-status-cell"
+    data-result-id="{{ result.id }}"
+    data-update-url="{% url 'update_result' result.pk %}"
+    id="result-status-{{ result.id }}"
+    style="background-color: {{ result.status.hex_color }}; color: {{ result.status.color }};">
+    {{ result.status.status }}
+</td>
+{% else %}
+<td class="result-status-cell-empty"></td>
+{% endif %}
+{% endwith %}
+{% endfor %}
