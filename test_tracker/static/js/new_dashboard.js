@@ -57,8 +57,9 @@ $(document).ready( function () {
     $(".result-status-cell").each(function () {
         var result_id = $(this).data('result-id');
         var update_result_link_url = $(this).data('update-url');
-       var test_id = $(this).closest('tr').data('test-id');
-       var num_days = $('#dashboard-table').data('num-days');
+        var table_row = $(this).closest('tr')
+        var test_id = table_row.data('test-id');
+        var num_days = $('#dashboard-table').data('num-days');
         function updateResultModalFormLink() {
             $("#result-status-" + result_id).modalForm({
                 formURL: update_result_link_url,
@@ -71,7 +72,9 @@ $(document).ready( function () {
                     dataKey: "result",
                     addModalFormFunction: updateResultModalFormLink
                 }
-            });
+            })
+            g_show_categories ? table_row.find('.category-column').show() : table_row.find('.category-column').hide()
+            g_show_subcategories ? table_row.find('.subcategory-column').show() : table_row.find('.subcategory-column').hide()
         }
         updateResultModalFormLink();
     });
