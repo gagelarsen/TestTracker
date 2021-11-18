@@ -60,6 +60,7 @@
                 data-test-id="{{ test.case.id }}"
                 data-update-url="{% url 'update_result' result.pk %}"
                 id="result-status-{{ result.id }}"
+                title="{{ result.author }}&#10;{{ result.note }}"
                 style="background-color: {{ result.status.hex_color }}; color: {{ result.status.color }};">
                 {{ result.status.status }}
             </td>

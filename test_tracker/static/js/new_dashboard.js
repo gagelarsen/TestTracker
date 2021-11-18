@@ -2,6 +2,7 @@ var g_show_categories = true;
 var g_show_subcategories = true;
 var g_show_inactive = true;
 
+var g_num_days = 5;
 
 function toggle_hide_categories() {
     if (!g_show_categories) {
@@ -39,6 +40,8 @@ function toggle_hide_inactive() {
 
 
 $(document).ready( function () {
+    g_num_days = parseInt($("#dashboard-table").data("num-days"));
+
      // Setup Category Javascript
     toggle_hide_categories();
     toggle_hide_subcategories();
@@ -59,7 +62,7 @@ $(document).ready( function () {
         var update_result_link_url = $(this).data('update-url');
         var table_row = $(this).closest('tr')
         var test_id = table_row.data('test-id');
-        var num_days = $('#dashboard-table').data('num-days');
+        var num_days = g_num_days;
         function updateResultModalFormLink() {
             $("#result-status-" + result_id).modalForm({
                 formURL: update_result_link_url,

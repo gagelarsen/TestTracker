@@ -22,11 +22,15 @@ def get_item(dictionary, key):
 
 
 def new_dashboard(request, name, version):
+
+    num_days_str = request.GET.get("num_days", 5)
+    num_days = int(num_days_str)
+
     context = {
         'errors': [],
         'name': name,
         'version': version,
-        'number_of_days': 30
+        'number_of_days': num_days
     }
 
     # Get Product
@@ -38,12 +42,12 @@ def new_dashboard(request, name, version):
 
     # Get Testcases
     test_cases = TestCase.objects.filter(product=product)
-    context['tests'] = [{'case': case, 'results': case.get_results_for_last_n_days(context['number_of_days'])}
+    context['tests'] = [{'case': case, 'results': case.get_results_for_last_n_days(num_days)}
                         for case in test_cases]
 
     # Get Dates
     dates = [datetime.date.today() - (i * datetime.timedelta(days=1))
-                        for i in range(context['number_of_days'])]
+                        for i in range(num_days)]
 
     dates_copy = dates.copy()
     for date in dates_copy:
