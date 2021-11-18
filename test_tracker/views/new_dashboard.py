@@ -26,7 +26,7 @@ def new_dashboard(request, name, version):
         'errors': [],
         'name': name,
         'version': version,
-        'number_of_days': 6
+        'number_of_days': 30
     }
 
     # Get Product
@@ -42,8 +42,16 @@ def new_dashboard(request, name, version):
                         for case in test_cases]
 
     # Get Dates
-    context['dates'] = [datetime.date.today() - (i * datetime.timedelta(days=1))
+    dates = [datetime.date.today() - (i * datetime.timedelta(days=1))
                         for i in range(context['number_of_days'])]
+
+    dates_copy = dates.copy()
+    for date in dates_copy:
+        if date in dates:
+            results = TestResult.objects.filter(date=date)
+            if len(results) <= 0:
+                dates.remove(date)
+    context['dates'] = dates
 
     return render(request, "test_tracker/new_dashboard.html", context)
 

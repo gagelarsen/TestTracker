@@ -26,7 +26,17 @@ def async_update_testcase_in_table(request, pk, num_days):
     if request.method == 'GET':
         testcase = TestCase.objects.get(id=pk)
         test = {'case': testcase, 'results': testcase.get_results_for_last_n_days(num_days)}
-        dates = [datetime.date.today() - (i * datetime.timedelta(days=1))for i in range(num_days)]
+
+        dates = [datetime.date.today() - (i * datetime.timedelta(days=1))
+                 for i in range(num_days)]
+
+        dates_copy = dates.copy()
+        for date in dates_copy:
+            if date in dates:
+                results = TestResult.objects.filter(date=date)
+                if len(results) <= 0:
+                    dates.remove(date)
+
         data['result'] = render_to_string(
             'test_tracker/_dashboard_table_result_new.html',
             {'test': test, 'product': testcase.product, 'dates': dates},
