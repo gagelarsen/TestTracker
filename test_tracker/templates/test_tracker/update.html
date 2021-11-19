@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<form method="post" action="">
+<form method="post" action="" id="update-form" data-reporter="{{ user }}">
   {% csrf_token %}
 
   <div class="modal-header">
@@ -30,9 +30,36 @@
       </div>
     {% endfor %}
   </div>
-
   <div class="modal-footer">
     <button type="button" class="submit-btn btn btn-primary">Update</button>
   </div>
 
 </form>
+<script>
+if ($("#id_status").length) {
+  $("#id_status").on("change", function() {
+    var selected_status = $("#id_status option:selected").text();
+    var note_field = $("#id_note");
+
+    switch(selected_status) {
+      case 'Issue':
+        var user = $("#update-form").data("reporter");
+        var today = new Date().toLocaleDateString();
+        note_field.val("Reported: " + user + "\nDate: " + today + "\n\nNote:");
+        break;
+      case 'Pass':
+        note_field.val("Test passed");
+        break;
+      case 'Bug':
+        break;
+      case 'False Negative':
+        note_field.val("Issue:\n\nAction:");
+        break;
+      case 'Fail':
+        note_field.val("Test failed");
+        break;
+    }
+
+  });
+}
+</script>
