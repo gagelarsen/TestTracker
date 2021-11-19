@@ -13,7 +13,7 @@ class TestCaseForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:
         model = TestCase
         fields = ['product', 'name', 'source', 'summary', 'category', 'subcategory',
-                  'active', 'needs_review', 'create_date', 'author']
+                  'active', 'needs_review', 'in_documentation', 'create_date', 'author']
 
     def __init__(self, *args, **kwargs):
         super(TestCaseForm, self).__init__(*args, **kwargs)

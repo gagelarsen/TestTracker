@@ -41,7 +41,7 @@ class TestCase(models.Model):
     subcategory = models.ForeignKey(TestSubcategory, on_delete=models.PROTECT)
     active = models.BooleanField(default=True)
     needs_review = models.BooleanField(default=True)
-    in_documentation = models.BooleanField(default=True)
+    in_documentation = models.BooleanField(default=False)
     create_date = models.DateField(default=datetime.date.today)
 
     def get_last_n_days_results(self, n_days=30, blanks=False):
