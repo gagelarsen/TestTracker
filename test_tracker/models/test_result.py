@@ -35,7 +35,7 @@ class TestResult(models.Model):
     status = models.ForeignKey(TestStatus, on_delete=models.PROTECT)
     author = models.ForeignKey(User, on_delete=models.PROTECT)
     testcase = models.ForeignKey(TestCase, on_delete=models.CASCADE)
-    note = models.TextField(max_length=256)
+    note = models.TextField(max_length=1024)
 
     def get_json(self):
         pass
