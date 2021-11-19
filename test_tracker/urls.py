@@ -43,6 +43,8 @@ urlpatterns = [
     path('update/product/<int:pk>', views.ProductUpdateView.as_view(), name='update_product'),
     path('update/testcase/<int:pk>', views.TestCaseUpdateView.as_view(), name='update_testcase'),
     path('update/result/<int:pk>', views.TestResultUpdateView.as_view(), name='update_result'),
+    path('update/copy/<str:name>/<str:version>/<int:day>-<int:month>-<int:year>/<int:pk>',
+         views.copy_result_to_current_date_new, name='copy_result'),
     # Delete
     path('delete/product/<int:pk>', views.ProductDeleteView.as_view(), name='delete_product'),
     path('delete/testcase/<int:pk>', views.TestCaseDeleteView.as_view(), name='delete_testcase'),

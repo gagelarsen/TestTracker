@@ -45,7 +45,7 @@ if ($("#id_status").length) {
       case 'Issue':
         var user = $("#update-form").data("reporter");
         var today = new Date().toLocaleDateString();
-        note_field.val("Reported: " + user + "\nDate: " + today + "\n\nNote:");
+        note_field.val("Reported: " + user + "\nDate: " + today + "\n\nNote: ");
         break;
       case 'Pass':
         note_field.val("Test passed");
@@ -53,7 +53,7 @@ if ($("#id_status").length) {
       case 'Bug':
         break;
       case 'False Negative':
-        note_field.val("Issue:\n\nAction:");
+        note_field.val("Issue: \n\nAction: ");
         break;
       case 'Fail':
         note_field.val("Test failed");

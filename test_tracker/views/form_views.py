@@ -117,9 +117,9 @@ class TestCaseDeleteView(PassRequestMixin, SuccessMessageMixin, generic.DeleteVi
         })
 
 
-class TestCaseUpdateView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
-    model = TestCase
+class TestCaseUpdateView(BSModalUpdateView):
     template_name = 'test_tracker/update.html'
+    model = TestCase
     form_class = TestCaseForm
     success_message = 'Success: TestCase was updated.'
 
@@ -133,6 +133,10 @@ class TestCaseUpdateView(PassRequestMixin, SuccessMessageMixin, generic.UpdateVi
                 'name': product.name,
                 'version': product.version,
             })
+
+    def get_object(self, queryset=None):
+        hook = super(TestCaseUpdateView, self).get_object(queryset)
+        return hook
 
 
 class TestResultCreateView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
@@ -156,6 +160,9 @@ class TestResultUpdateView(BSModalUpdateView):
 
     def get_success_url(self):
         product = self.get_context_data()['testresult'].testcase.product
+        url = self.request.META.get('HTTP_REFERER', None)
+        if url:
+            return url
         return reverse_lazy('dashboard', kwargs={
             'name': product.name,
             'version': product.version,

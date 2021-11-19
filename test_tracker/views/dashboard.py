@@ -10,7 +10,7 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 
@@ -207,3 +207,33 @@ def copy_result_to_current_date(request, name, version, day, month, year, pk):
         )
         new_result.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@transaction.atomic
+def copy_result_to_current_date_new(request, name, version, day, month, year, pk):
+    print('got here...')
+    product = Product.objects.get(name=name, version=version)
+    date = datetime.datetime(year=year, day=day, month=month)
+    result_dates = TestResult.objects.filter(testcase__product=product).values('date').distinct()
+    current_result_date = max([date['date'] for date in result_dates])
+    copied_result = TestResult.objects.get(testcase__product=product, pk=pk, date=date)
+    testcase = copied_result.testcase
+    note = copied_result.note + " (COPIED)"
+
+    try:
+        cur_result = TestResult.objects.get(testcase__product=product, testcase=testcase, date=current_result_date)
+        cur_result.status = copied_result.status
+        cur_result.note = note
+        cur_result.author = request.user
+        cur_result.save()
+    except ObjectDoesNotExist:
+        new_result = TestResult(
+            date=current_result_date,
+            status=copied_result.status,
+            author=request.user,
+            testcase=testcase,
+            note=note,
+        )
+        new_result.save()
+
+    return HttpResponse('<h1>Copied Result</h1>')

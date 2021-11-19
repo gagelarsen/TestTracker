@@ -1,13 +1,19 @@
-<td class="test-name-column">{{ test.case.name }}</td>
-<td class="category-column">{{ test.case.category.category }}</td>
-<td class="subcategory-column">{{ test.case.subcategory.subcategory }}</td>
+<td class="test-name-column test-row-header">
+    {{ test.case.name }}
+    {% if test.case.in_documentation %}<span class="glyphicon glyphicon-send" aria-hidden="true"></span>{% endif %}
+    {% if test.case.needs_review %}<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>{% endif %}
+</td>
+<td class="category-column test-row-header">{{ test.case.category.category }}</td>
+<td class="subcategory-column test-row-header">{{ test.case.subcategory.subcategory }}</td>
 {% for date in dates %}
 {% with result=test.results|get_item:date %}
 {% if result %}
 <td class="result-status-cell"
     data-result-id="{{ result.id }}"
+    data-test-id="{{ test.case.id }}"
     data-update-url="{% url 'update_result' result.pk %}"
     id="result-status-{{ result.id }}"
+    title="{{ result.author }}&#10;{{ result.note }}"
     style="background-color: {{ result.status.hex_color }}; color: {{ result.status.color }};">
     {{ result.status.status }}
 </td>
