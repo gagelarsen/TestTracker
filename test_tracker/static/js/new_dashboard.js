@@ -83,3 +83,54 @@ $(document).ready( function () {
     });
 
 });
+
+
+$(function() {
+
+    var contextMenu = $("#test-result-context-menu");
+    var selected_test_id = null;
+    var selected_result_id = null;
+
+    $("body").on("contextmenu", "table tr .result-status-cell", function(e) {
+         contextMenu.css({
+              display: "block",
+              left: e.pageX,
+              top: e.pageY
+         });
+
+         selected_test_id = $(this).data('test-id');
+         selected_result_id = $(this).data('result-id');
+
+         return false;
+    });
+
+    $('html').click(function() {
+         contextMenu.hide();
+    });
+
+  $("#test-result-context-menu li a").click(function(e){
+    var  f = $(this);
+    var action_id = f.attr('id')
+    debugger;
+    switch (action_id) {
+        case 'test-result-context-menu-edit-result':
+            alert('Edit Result option not implemented...')
+            break;
+        case 'test-result-context-menu-delete-result':
+            alert('Delete Result option not implemented...')
+            break;
+        case 'test-result-context-menu-copy-result-to-current':
+            alert('Copy Result To Current option not implemented...')
+            break;
+        case 'test-result-context-menu-edit-test':
+            alert('Edit Test option not implemented...')
+            break;
+        case 'test-result-context-menu-delete-test':
+            alert('Delete Test option not implemented...')
+            break;
+    }
+    selected_result_id = null;
+    selected_test_id = null;
+  });
+
+});

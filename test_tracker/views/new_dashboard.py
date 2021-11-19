@@ -41,7 +41,7 @@ def new_dashboard(request, name, version):
         return render(request, "test_tracker/new_dashboard.html", context)
 
     # Get Testcases
-    test_cases = TestCase.objects.filter(product=product)
+    test_cases = TestCase.objects.filter(product=product).order_by('category', 'subcategory')
     context['tests'] = [{'case': case, 'results': case.get_results_for_last_n_days(num_days)}
                         for case in test_cases]
 
