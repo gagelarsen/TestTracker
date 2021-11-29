@@ -209,9 +209,8 @@ def copy_result_to_current_date(request, name, version, day, month, year, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-@transaction.atomic
+@login_required
 def copy_result_to_current_date_new(request, name, version, day, month, year, pk):
-    print('got here...')
     product = Product.objects.get(name=name, version=version)
     date = datetime.datetime(year=year, day=day, month=month)
     result_dates = TestResult.objects.filter(testcase__product=product).values('date').distinct()
@@ -236,4 +235,6 @@ def copy_result_to_current_date_new(request, name, version, day, month, year, pk
         )
         new_result.save()
 
-    return HttpResponse('<h1>Copied Result</h1>')
+    return HttpResponse('<div class="container"><br><h1>Copied Result</h1><p>Result copied successfully!<br>'
+                        '<form><button type="button" class="submit-btn btn btn-primary">'
+                        'Update View</button></form><br></div>')

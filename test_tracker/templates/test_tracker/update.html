@@ -41,20 +41,20 @@ if ($("#id_status").length) {
     var selected_status = $("#id_status option:selected").text();
     var note_field = $("#id_note");
 
+    var today = new Date().toLocaleDateString();
     switch(selected_status) {
       case 'Issue':
         var user = $("#update-form").data("reporter");
-        var today = new Date().toLocaleDateString();
         note_field.val("Reported: " + user + "\nDate: " + today + "\n\nNote: ");
         break;
       case 'Pass':
         note_field.val("Test passed");
         break;
       case 'Bug':
-        note_field.val("Bug #: \nDate Reported: \nBug Summary: ");
+        note_field.val("Bug #: \nDate Reported: " + today + "\nBug Summary: ");
         break;
       case 'False Negative':
-        note_field.val("Issue: \nDate: \n\nAction: ");
+        note_field.val("Issue: \nDate: " + today + "\n\nAction: ");
         break;
       case 'Fail':
         note_field.val("Test failed");

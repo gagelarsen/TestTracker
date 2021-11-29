@@ -12,6 +12,7 @@
     data-result-id="{{ result.id }}"
     data-test-id="{{ test.case.id }}"
     data-update-url="{% url 'update_result' result.pk %}"
+    data-copy-date="{{ result.date.day }}-{{ result.date.month }}-{{ result.date.year }}"
     id="result-status-{{ result.id }}"
     title="{{ result.author }}&#10;{{ result.note }}"
     style="background-color: {{ result.status.hex_color }}; color: {{ result.status.color }};">

@@ -126,7 +126,7 @@ $(function() {
 
         let copy_date = $(this).data('copy-date');
         let copy_result_modal_url = '/TestTracker/update/copy/' + xms_name + '/' + xms_version + '/' + copy_date + '/' + selected_result_id;
-         $('#test-result-context-menu-copy-test-to-current').modalForm({
+         $('#test-result-context-menu-copy-result-to-current').modalForm({
             formURL: copy_result_modal_url,
             asyncUpdate: true,
             asyncSettings: {

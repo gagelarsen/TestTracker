@@ -42,8 +42,8 @@ def async_update_testcase_in_table(request, pk, num_days):
             {'test': test, 'product': testcase.product, 'dates': dates},
             request=request
         )
-        print(test)
         return JsonResponse(data)
+
 
 def async_update_case():
     pass
