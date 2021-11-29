@@ -51,12 +51,19 @@ if ($("#id_status").length) {
         note_field.val("Test passed");
         break;
       case 'Bug':
+        note_field.val("Bug #: \nDate Reported: \nBug Summary: ");
         break;
       case 'False Negative':
-        note_field.val("Issue: \n\nAction: ");
+        note_field.val("Issue: \nDate: \n\nAction: ");
         break;
       case 'Fail':
         note_field.val("Test failed");
+        break;
+      case 'Under Construction':
+        note_field.val("Date: \nProblem: ");
+        break;
+      case 'In Documentation':
+        note_field.val("Date Reported: \nReported By: \nIssue: ");
         break;
     }
 
