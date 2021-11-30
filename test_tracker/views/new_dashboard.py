@@ -52,7 +52,7 @@ def new_dashboard(request, name, version):
     dates_copy = dates.copy()
     for date in dates_copy:
         if date in dates:
-            results = TestResult.objects.filter(date=date)
+            results = TestResult.objects.filter(testcase__product=product, date=date)
             if len(results) <= 0:
                 dates.remove(date)
     context['dates'] = dates
