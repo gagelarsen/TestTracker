@@ -143,8 +143,8 @@ $(function() {
         let delete_result_modal_url = '/TestTracker/delete/result/' + selected_result_id;
          $('#test-result-context-menu-delete-result').modalForm({formURL: delete_result_modal_url});
 
-        let update_test_modal_url = '/TestTracker/update/testcase/' + selected_result_id;
-         $('#test-result-context-menu-update-test').modalForm({
+        let update_test_modal_url = '/TestTracker/update/testcase/' + selected_test_id;
+         $('#test-result-context-menu-edit-test').modalForm({
             formURL: update_test_modal_url,
             asyncUpdate: true,
             asyncSettings: {

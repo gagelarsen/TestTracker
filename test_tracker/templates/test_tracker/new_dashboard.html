@@ -27,6 +27,21 @@
 <div id="table-buttons">
     <button id="hide-show-categories-button" type="button" class="btn btn-sm btn-info">Hide/Show Categories</button>
     <button id="hide-show-inactive-button" type="button" class="btn btn-sm btn-info">Hide/Show Inactive</button>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Action <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dashboard-action" id="upload-results-action" href="#">Upload Results</a></li>
+            <li><a class="dashboard-action" id="add-testcase-action" href="#">Add Testcase</a></li>
+            <li><a class="dashboard-action" id="upload-testcases-action" href="#">Upload Testcases</a></li>
+            <li><a class="dashboard-action" id="review-testcases-action" href="#">Review Test Cases</a></li>
+            <li><a class="dashboard-action" id="create-test-category-action" href="#">Create Test Category</a></li>
+            <li><a class="dashboard-action" id="create-test-subcategory-action" href="#">Create Test Subcategory</a></li>
+            <li><a class="dashboard-action" id="create-test-status-action" href="#">Create Test Status</a></li>
+        </ul>
+    </div>
 </div>
 
 <table id="dashboard-table"
