@@ -1,5 +1,6 @@
 <td class="test-name-column test-row-header">
     {{ test.case.name }}
+    {% if not test.case.active %}<span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>{% endif %}
     {% if test.case.in_documentation %}<span class="glyphicon glyphicon-send" aria-hidden="true"></span>{% endif %}
     {% if test.case.needs_review %}<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>{% endif %}
 </td>

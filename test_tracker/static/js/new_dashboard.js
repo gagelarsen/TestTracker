@@ -4,16 +4,24 @@ var g_show_inactive = true;
 
 var g_num_days = 5;
 
-function toggle_hide_categories() {
+function update_category_subcategory_visibility() {
     if (!g_show_categories) {
-        g_show_categories = true;
         $(".category-column").show();
     }
     else {
-        g_show_categories = false;
         $(".category-column").hide();
     }
 
+}
+
+function toggle_hide_categories() {
+    if (!g_show_categories) {
+        g_show_categories = true;
+    }
+    else {
+        g_show_categories = false;
+    }
+    update_category_subcategory_visibility();
 }
 
 function toggle_hide_subcategories() {
@@ -106,8 +114,9 @@ $(function() {
         var table_row = $(this).closest('tr');
 
         function place_holder() {
-            g_show_categories ? table_row.find('.category-column').show() : table_row.find('.category-column').hide()
-            g_show_subcategories ? table_row.find('.subcategory-column').show() : table_row.find('.subcategory-column').hide()
+            g_show_categories ? table_row.find('.category-column').show() : table_row.find('.category-column').hide();
+            g_show_subcategories ? table_row.find('.subcategory-column').show() : table_row.find('.subcategory-column').hide();
+            table_row.data('test-active') == 'True' || g_show_inactive ? table_row.show() : table_row.hide();
         }
 
         let update_result_modal_url = '/TestTracker/update/result/' + selected_result_id;
@@ -210,3 +219,24 @@ $(function() {
 
 
 });
+
+function tableSearch() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("table-search-input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dashboard-table");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    if (tr[i].getAttribute('data-test-active') == 'True' || g_show_inactive) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+}

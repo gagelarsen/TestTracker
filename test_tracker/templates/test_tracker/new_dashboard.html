@@ -30,19 +30,28 @@
 
     <div class="btn-group">
         <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Action <span class="caret"></span>
+            Actions <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dashboard-action" id="upload-results-action" href="#">Upload Results</a></li>
-            <li><a class="dashboard-action" id="add-testcase-action" href="#">Add Testcase</a></li>
-            <li><a class="dashboard-action" id="upload-testcases-action" href="#">Upload Testcases</a></li>
-            <li><a class="dashboard-action" id="review-testcases-action" href="#">Review Test Cases</a></li>
-            <li><a class="dashboard-action" id="create-test-category-action" href="#">Create Test Category</a></li>
-            <li><a class="dashboard-action" id="create-test-subcategory-action" href="#">Create Test Subcategory</a></li>
-            <li><a class="dashboard-action" id="create-test-status-action" href="#">Create Test Status</a></li>
+            <li><a class="dashboard-action" id="upload-results-action"
+                   href="{% url 'upload_results' name version %}">Upload Results</a></li>
+            <li><a class="dashboard-action" id="create-testcase-action"
+                   href="{% url 'create_testcase'%}">Create Testcase</a></li>
+            <li><a class="dashboard-action" id="upload-testcases-action"
+                   href="{% url 'upload_testcases' name version %}">Upload Testcases</a></li>
+            <li><a class="dashboard-action" id="review-testcases-action"
+                   href="{% url 'needs_review' name version %}">Review Test Cases</a></li>
+            <li><a class="dashboard-action" id="create-test-category-action"
+                   href="{% url 'create_testcategory'%}">Create Test Category</a></li>
+            <li><a class="dashboard-action" id="create-test-subcategory-action"
+                   href="{% url 'create_testsubcategory'%}">Create Test Subcategory</a></li>
+            <li><a class="dashboard-action" id="create-test-status-action"
+                   href="{% url 'create_teststatus'%}">Create Test Status</a></li>
         </ul>
     </div>
 </div>
+<br>
+<input type="text" id="table-search-input" onkeyup="tableSearch()" placeholder="Search for names.." title="Type in a name">
 
 <table id="dashboard-table"
        class="table"
@@ -70,6 +79,7 @@
         >
             <td class="test-name-column test-row-header">
                 {{ test.case.name }}
+                {% if not test.case.active %}<span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>{% endif %}
                 {% if test.case.in_documentation %}<span class="glyphicon glyphicon-send" aria-hidden="true"></span>{% endif %}
                 {% if test.case.needs_review %}<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>{% endif %}
             </td>
