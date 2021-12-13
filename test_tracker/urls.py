@@ -54,5 +54,8 @@ urlpatterns = [
     # Async
     path('async/update/result/<int:pk>', views.async_update_results, name='async_update_results'),
     path('async/new/update/testcase-in-table/<int:pk>-<int:num_days>', views.async_update_testcase_in_table,
-         name='async_update_testcase_in_table')
+         name='async_update_testcase_in_table'),
+    # Tasks
+    path('tasks', views.task_list, name='task_list'),
+    path('tasks/<int:pk>', views.task_details, name='task_details'),
 ]

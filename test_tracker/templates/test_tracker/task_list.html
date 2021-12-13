@@ -1,0 +1,104 @@
+{% extends "test_tracker/layout.html" %}
+
+{% block test_tracker_content %}
+{% load static %}
+
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#assigned">Assigned</a></li>
+    <li><a data-toggle="tab" href="#review">Review</a></li>
+    <li><a data-toggle="tab" href="#all">All Tasks</a></li>
+</ul>
+
+<div class="tab-content">
+
+
+    <div id="assigned" class="tab-pane fade in active">
+        <div id="container">
+            <table id="assigned-table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Task</th>
+                        <th>Date Assigned</th>
+                        <th>Reviewer</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in assigned_tasks %}
+                    <tr>
+                        <td>{{ task.id }}</td>
+                        <td>{{ task.task }}</td>
+                        <td>{{ task.date_created }}</td>
+                        <td>{{ task.reviewer }}</td>
+                        <td><a class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="review" class="tab-pane fade">
+        <div id="container">
+            <table id="review-table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Task</th>
+                        <th>Date Assigned</th>
+                        <th>Assigned To</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for task in review_tasks %}
+                    <tr>
+                        <td>{{ task.id }}</td>
+                        <td>{{ task.task }}</td>
+                        <td>{{ task.date_created }}</td>
+                        <td>{{ task.assigned_to }}</td>
+                        <td><a class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="all" class="tab-pane fade">
+        <div id="container">
+            <table id="all-task-table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Task</th>
+                        <th>Date Assigned</th>
+                        <th>Assigned To</th>
+                        <th>Reviewer</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.id }}</td>
+                        <td>{{ task.task }}</td>
+                        <td>{{ task.date_created }}</td>
+                        <td>{{ task.assigned_to }}</td>
+                        <td>{{ task.reviewer }}</td>
+                        <td><a class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

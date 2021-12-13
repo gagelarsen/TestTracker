@@ -8,6 +8,8 @@ from test_tracker.models.test_case import TestCase
 
 
 def async_update_results(request, pk):
+    import datetime
+    print(datetime.datetime.now())
     data = dict()
     if request.method == 'GET':
         result = TestResult.objects.get(id=pk)
@@ -18,11 +20,13 @@ def async_update_results(request, pk):
             {'result': result, 'product': result.testcase.product},
             request=request
         )
+        print(datetime.datetime.now())
         return JsonResponse(data)
 
 
 def async_update_testcase_in_table(request, pk, num_days):
     data = dict()
+    print(datetime.datetime.now())
     if request.method == 'GET':
         testcase = TestCase.objects.get(id=pk)
         test = {'case': testcase, 'results': testcase.get_results_for_last_n_days(num_days)}
@@ -42,6 +46,7 @@ def async_update_testcase_in_table(request, pk, num_days):
             {'test': test, 'product': testcase.product, 'dates': dates},
             request=request
         )
+        print(datetime.datetime.now())
         return JsonResponse(data)
 
 

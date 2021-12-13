@@ -13,6 +13,7 @@ from test_tracker.models.test_subcategory import TestSubcategory
 from test_tracker.models.product import Product
 from test_tracker.models.test_case import TestCase
 from test_tracker.models.test_result import TestResult
+from test_tracker.models.test_task import TestTask
 
 
 @admin.register(TestStatus)
@@ -47,3 +48,8 @@ class TestCaseAdmin(admin.ModelAdmin):
     list_display = ('name', 'product', 'create_date', 'author', 'active')
     list_filter = ('product', 'active', 'author', 'category', 'needs_review', 'create_date')
     inlines = [TestResultInline]
+
+@admin.register(TestTask)
+class TestTaskAdmin(admin.ModelAdmin):
+    list_display = ('date_created', 'assigned_to', 'task', 'complete')
+    list_filter = ('assigned_to', 'reviewer', 'complete', 'date_created')

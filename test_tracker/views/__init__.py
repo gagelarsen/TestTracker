@@ -35,3 +35,4 @@ from test_tracker.views.form_views import TestStatusCreateView
 from test_tracker.views.async_views import async_update_case
 from test_tracker.views.async_views import async_update_results
 from test_tracker.views.async_views import async_update_testcase_in_table
+from test_tracker.views.tasks import task_list, task_details

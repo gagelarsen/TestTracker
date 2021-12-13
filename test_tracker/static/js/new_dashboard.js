@@ -11,7 +11,12 @@ function update_category_subcategory_visibility() {
     else {
         $(".category-column").hide();
     }
-
+    if (!g_show_subcategories) {
+        $(".subcategory-column").show();
+    }
+    else {
+        $(".subcategory-column").hide();
+    }
 }
 
 function toggle_hide_categories() {
@@ -228,7 +233,8 @@ function tableSearch() {
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
     if (tr[i].getAttribute('data-test-active') == 'True' || g_show_inactive) {
-      td = tr[i].getElementsByTagName("td")[0];
+      tds = tr[i].getElementsByTagName("td");
+      td = tds[0]
       if (td) {
         txtValue = td.textContent || td.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
