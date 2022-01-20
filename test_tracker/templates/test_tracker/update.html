@@ -11,62 +11,63 @@
   </div>
 
   <div class="modal-body">
-
     <div class="{% if form.non_field_errors %}invalid{% endif %} mb-2">
-      {% for error in form.non_field_errors %}
-        {{ error }}
-      {% endfor %}
+      {% for error in form.non_field_errors %} {{ error }} {% endfor %}
     </div>
 
     {% for field in form %}
-      <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {% render_field field class="form-control" placeholder=field.label %}
-        <div class="{% if field.errors %} invalid{% endif %}">
-          {% for error in field.errors %}
-            <p class="help-block">{{ error }}</p>
-          {% endfor %}
-        </div>
+    <div class="form-group">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {% render_field field class="form-control" placeholder=field.label %}
+      <div class="{% if field.errors %} invalid{% endif %}">
+        {% for error in field.errors %}
+        <p class="help-block">{{ error }}</p>
+        {% endfor %}
       </div>
+    </div>
     {% endfor %}
   </div>
   <div class="modal-footer">
     <button type="button" class="submit-btn btn btn-primary">Update</button>
   </div>
-
 </form>
 <script>
-if ($("#id_status").length) {
-  $("#id_status").on("change", function() {
-    var selected_status = $("#id_status option:selected").text();
-    var note_field = $("#id_note");
+  if ($("#id_status").length) {
+    $("#id_status").on("change", function () {
+      var selected_status = $("#id_status option:selected").text();
+      var note_field = $("#id_note");
 
-    var today = new Date().toLocaleDateString();
-    switch(selected_status) {
-      case 'Issue':
-        var user = $("#update-form").data("reporter");
-        note_field.val("Reported: " + user + "\nDate: " + today + "\n\nNote: ");
-        break;
-      case 'Pass':
-        note_field.val("Test passed");
-        break;
-      case 'Bug':
-        note_field.val("Bug #: \nDate Reported: " + today + "\nBug Summary: ");
-        break;
-      case 'False Negative':
-        note_field.val("Issue: \nDate: " + today + "\n\nAction: ");
-        break;
-      case 'Fail':
-        note_field.val("Test failed");
-        break;
-      case 'Under Construction':
-        note_field.val("Date: \nProblem: ");
-        break;
-      case 'In Documentation':
-        note_field.val("Date Reported: \nReported By: \nIssue: ");
-        break;
-    }
-
-  });
-}
+      var today = new Date().toLocaleDateString();
+      switch (selected_status) {
+        case "Issue":
+          var user = $("#update-form").data("reporter");
+          note_field.val(
+            "Reported: " + user + "\nDate: " + today + "\n\nNote: "
+          );
+          break;
+        case "Pass":
+          note_field.val("Test passed");
+          break;
+        case "Bug":
+          note_field.val(
+            "Bug #: \nDate Reported: " + today + "\nBug Summary: "
+          );
+          break;
+        case "False Negative":
+          note_field.val("Date: " + today + "\nIssue: \nAction: ");
+          break;
+        case "Fail":
+          note_field.val("Test failed");
+          break;
+        case "Under Construction":
+          note_field.val("Date: " + today + "\nProblem: ");
+          break;
+        case "In Documentation":
+          note_field.val(
+            "Date Reported: " + today + "\nReported By: \nIssue: "
+          );
+          break;
+      }
+    });
+  }
 </script>
